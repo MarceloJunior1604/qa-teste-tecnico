@@ -18,6 +18,7 @@
     <modules>
         <module>api-tests</module>
         <module>web-tests</module>
+        <module>performance-tests</module>
     </modules>
 
 </project>
