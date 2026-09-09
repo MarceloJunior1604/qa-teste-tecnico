@@ -1,0 +1,24 @@
+name: Web Tests
+
+on:
+  push:
+    paths:
+      - 'web-tests/**'
+  pull_request:
+    paths:
+      - 'web-tests/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configurar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Rodar testes Web
+        run: mvn test -pl web-tests -Dheadless=true
