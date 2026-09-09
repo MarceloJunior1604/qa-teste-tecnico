@@ -7,8 +7,8 @@ on:
   pull_request:
     paths:
       - 'web-tests/**'
-    workflow_dispatch:
-    
+  workflow_dispatch:
+
 jobs:
   test:
     runs-on: ubuntu-latest
