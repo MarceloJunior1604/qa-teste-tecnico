@@ -10,9 +10,7 @@ out/
 *.log
 
 # JMeter
-performance-tests/*.jtl
-performance-tests/reports/*
-!performance-tests/reports/.gitkeep
+performance-tests/**/*.jtl
 
 # Allure
 allure-results/

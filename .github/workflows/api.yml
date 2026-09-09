@@ -23,3 +23,14 @@ jobs:
 
       - name: Rodar testes de API
         run: mvn test -pl api-tests
+
+      - name: Gerar relatorio Allure
+        if: always()
+        run: mvn -pl api-tests allure:report
+
+      - name: Publicar relatorio Allure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report-api
+          path: api-tests/target/site/allure-maven-plugin/

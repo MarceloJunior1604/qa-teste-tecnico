@@ -1,0 +1,82 @@
+name: Publish Reports
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configurar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Rodar testes de API
+        continue-on-error: true
+        run: mvn test -pl api-tests
+
+      - name: Rodar testes Web
+        continue-on-error: true
+        run: mvn test -pl web-tests -Dheadless=true
+
+      - name: Gerar relatorio Allure da API
+        run: mvn -pl api-tests allure:report
+
+      - name: Gerar relatorio Allure do Web
+        run: mvn -pl web-tests allure:report
+
+      - name: Montar site combinado
+        run: |
+          mkdir -p site
+          cp -r api-tests/target/site/allure-maven-plugin site/api
+          cp -r web-tests/target/site/allure-maven-plugin site/web
+          mkdir -p site/performance
+          cp -r performance-tests/reports/load-test site/performance/load-test
+          cp -r performance-tests/reports/spike-test site/performance/spike-test
+          cat > site/index.html <<'EOF'
+          <!DOCTYPE html>
+          <html lang="pt-BR">
+          <head><meta charset="UTF-8"><title>Relatorios - Teste Tecnico QA</title></head>
+          <body>
+            <h1>Relatorios de execucao</h1>
+            <ul>
+              <li><a href="api/index.html">API Tests (Allure)</a></li>
+              <li><a href="web/index.html">Web Tests (Allure)</a></li>
+              <li><a href="performance/load-test/index.html">Performance - Teste de carga</a></li>
+              <li><a href="performance/spike-test/index.html">Performance - Teste de pico</a></li>
+            </ul>
+          </body>
+          </html>
+          EOF
+
+      - name: Publicar artefato do Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publicar no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
