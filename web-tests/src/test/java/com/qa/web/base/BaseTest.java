@@ -29,11 +29,12 @@ public class BaseTest {
     }
 
     @AfterEach
-    void tearDown() {
+    void tearDown() throws InterruptedException {
         if (driver != null) {
             attachScreenshot();
             driver.quit();
         }
+        Thread.sleep(3000);
     }
 
     private void attachScreenshot() {
