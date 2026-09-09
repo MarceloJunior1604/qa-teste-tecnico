@@ -1,6 +1,6 @@
 # Teste Técnico QA — Web, API e Performance
 
-Repositório com a automação dos 3 desafios técnicos de QA:
+Repositório com a automação dos 3 desafios técnicos de QA. Relatórios sempre atualizados aqui: https://marcelojunior1604.github.io/qa-teste-tecnico/
 
 | Módulo | Escopo | Stack |
 |---|---|---|

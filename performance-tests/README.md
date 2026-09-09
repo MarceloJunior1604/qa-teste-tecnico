@@ -17,7 +17,7 @@ Em vez de montar o teste na interface do JMeter e versionar um `.jmx`, escrevi a
 3. `POST /purchase.php` — compra o primeiro voo retornado (flight/price/airline vêm da resposta anterior, não são fixos)
 4. `POST /confirmation.php` — confirma com dados de pagamento fictícios
 
-A validação de sucesso checa o texto `"Thank you for your purchase today!"` na resposta final, não só o status 200.
+A validação de sucesso checa o texto `"Thank you for your purchase today!"` na resposta final — status 200 sozinho não garante que a compra foi mesmo processada.
 
 Sobre o "250 req/s": configurei o `rpsThreadGroup` mirando 250 fluxos completos por segundo. Na prática, como cada fluxo tem 4 requests, o número que a lib realmente controla acabou se comportando como requisições HTTP totais por segundo — dá pra ver isso nos resultados abaixo.
 
@@ -33,11 +33,7 @@ Roda os dois testes seguidos — carga (~10-11min) e pico (~1min), uns 12-14min 
 
 Cada execução gera um dashboard HTML em `performance-tests/target/reports/<load-test|spike-test>/<timestamp>/index.html`. Os relatórios das execuções usadas nos resultados abaixo já estão commitados em `performance-tests/reports/load-test/` e `performance-tests/reports/spike-test/`.
 
-Pontos principais pra olhar quando abrir:
-- **APDEX / tabela no topo**: throughput, p90, taxa de erro — o resumo mais rápido pra comparar com o critério de aceitação.
-- **Aba "Over Time" → "Response Times Over Time"**: mostra a latência ao longo da execução. No teste de carga essa linha fica bem estável; no de pico dá pra ver ela subindo conforme a carga aumenta além do que o servidor aguenta.
-- **Aba "Over Time" → "Active Threads Over Time"**: mostra quantos "usuários simulados" estavam ativos a cada momento — útil pra confirmar que a rampa de subida aconteceu do jeito configurado.
-- **Aba "Charts" → "Response Times Percentiles"**: onde dá pra ver o p90 de forma visual, não só o número na tabela.
+A tabela no topo (APDEX) já traz throughput, p90 e taxa de erro — é o resumo mais rápido pra comparar com o critério de aceitação. Se quiser ver mais detalhe, "Over Time → Response Times Over Time" mostra a latência ao longo da execução (no teste de carga fica uma linha estável; no de pico dá pra ver ela subindo conforme passa da capacidade do servidor), e "Over Time → Active Threads Over Time" mostra quantos usuários simulados estavam ativos em cada momento, bom pra conferir se a rampa subiu do jeito configurado.
 
 ## Resultados
 

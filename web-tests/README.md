@@ -21,11 +21,11 @@ mvn -pl web-tests allure:serve
 
 ## Cenários cobertos
 
-O enunciado pede pra levantar pelo menos 2 cenários relevantes de teste pra busca do blog. Escolhi 3:
+O enunciado pede pelo menos 2 cenários relevantes. Escolhi 3:
 
-1. **Busca com termo existente retorna resultados** — digita um termo válido e confere que aparece pelo menos um post na lista. É o caminho feliz, mas validando de verdade que veio resultado, não só que a página carregou.
-2. **Busca sem correspondência exibe mensagem de erro** — digita um termo que não bate com nada e confere a mensagem exata de "nada encontrado". É onde mais aparece bug de UX em busca (mensagem genérica, tela quebrada, etc.), então vale a pena cobrir.
-3. **Busca com campo vazio não quebra a página** — submete a busca sem digitar nada. O site cai num fallback (lista geral de posts) em vez de dar erro, e o teste confirma isso.
+1. Busca com termo existente retorna resultados — digita um termo válido e confere que veio pelo menos um post na lista.
+2. Busca sem correspondência mostra a mensagem certa — termo aleatório, confere o texto exato de "nada encontrado". É onde geralmente aparece bug de UX em busca (mensagem genérica, tela quebrada), por isso entrou.
+3. Campo vazio não quebra a página — submete sem digitar nada, o site cai num fallback listando tudo, sem erro.
 
 ## Rodando headless (CI)
 
@@ -35,5 +35,5 @@ mvn test -pl web-tests -Dheadless=true
 
 ## Considerações
 
-Durante o desenvolvimento, o blog do Agi chegou a bloquear os testes algumas vezes no GitHub Actions com `429 Too Many Requests`. O IP dos runners do GitHub é compartilhado por muita gente ao mesmo tempo, então o site aplica rate limit nele com mais frequência do que aplicaria numa máquina local rodando os mesmos testes. Já foi adicionado um pequeno intervalo entre os testes pra reduzir isso, mas o bloqueio pode voltar a acontecer — não é bug do código, é o próprio site limitando o tráfego. Se acontecer, rodar de novo geralmente resolve.
+Durante o desenvolvimento o blog do Agi chegou a bloquear os testes algumas vezes no GitHub Actions com `429 Too Many Requests`. O IP dos runners é compartilhado por muita gente ao mesmo tempo, então o site aplica rate limit nele com mais frequência do que numa máquina local. Já coloquei um pequeno intervalo entre os testes pra ajudar, mas pode voltar a acontecer — não é bug do código, é o site limitando o tráfego mesmo. Se rolar, roda de novo.
 

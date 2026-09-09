@@ -27,12 +27,12 @@ O relatório inclui request/response de cada chamada (via filtro `AllureRestAssu
 
 ## Cenários cobertos
 
-- `GET /breeds/list/all` — retorna 200 e o corpo bate com o schema esperado (objeto de raça → lista de sub-raças).
-- `GET /breed/{breed}/images` com raça válida — retorna 200 e lista de imagens no formato esperado.
-- `GET /breed/{breed}/images` com raça inexistente — retorna 404 com a mensagem de erro correta, não só o status code.
-- `GET /breeds/image/random` — retorna 200 com uma URL de imagem válida.
+- `GET /breeds/list/all` — 200 e o corpo bate com o schema esperado (objeto de raça → lista de sub-raças).
+- `GET /breed/{breed}/images` com raça válida — 200 e lista de imagens no formato certo.
+- `GET /breed/{breed}/images` com raça inexistente — 404, confere também a mensagem de erro, não só o status code.
+- `GET /breeds/image/random` — 200 com uma URL de imagem válida.
 
-Validação de contrato feita com JSON Schema em vez de asserts soltos campo a campo — garante o formato inteiro da resposta, não só alguns valores pontuais.
+A validação usa JSON Schema em vez de assert campo a campo, pra cobrir o formato inteiro da resposta de uma vez.
 
 ## Pré-requisitos
 
