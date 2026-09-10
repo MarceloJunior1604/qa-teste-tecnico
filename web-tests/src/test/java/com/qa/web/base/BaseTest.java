@@ -34,7 +34,9 @@ public class BaseTest {
             attachScreenshot();
             driver.quit();
         }
-        Thread.sleep(3000);
+        if (Boolean.parseBoolean(System.getProperty("headless", "false"))) {
+            Thread.sleep(3000);
+        }
     }
 
     private void attachScreenshot() {

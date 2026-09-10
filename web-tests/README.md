@@ -35,5 +35,5 @@ mvn test -pl web-tests -Dheadless=true
 
 ## Considerações
 
-Durante o desenvolvimento o blog do Agi chegou a bloquear os testes algumas vezes no GitHub Actions com `429 Too Many Requests`. O IP dos runners é compartilhado por muita gente ao mesmo tempo, então o site aplica rate limit nele com mais frequência do que numa máquina local. Já coloquei um pequeno intervalo entre os testes pra ajudar, mas pode voltar a acontecer. Não é bug do código, é o site limitando o tráfego mesmo. Se rolar, roda de novo.
+Durante o desenvolvimento o blog do Agi chegou a bloquear os testes com `429 Too Many Requests`, tanto no GitHub Actions quanto rodando local. O rate limit do site é agressivo o bastante pra travar com só as 3 buscas em sequência que os testes fazem, independente de vir do IP dos runners ou da sua própria máquina. Coloquei um intervalo entre os testes que ajuda um pouco, mas não elimina — o limite deles parece ser mesmo bem baixo. Não é bug do código, é o site limitando o tráfego. Se rolar, roda de novo.
 

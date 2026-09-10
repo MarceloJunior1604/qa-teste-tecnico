@@ -33,7 +33,7 @@ public class BreedImagesTest extends BaseApiTest {
     @Description("GET /breed/{breed}/images com uma raça inexistente deve responder 404 com status de erro e mensagem explicando que a raça não existe.")
     void deveRetornarStatus404ComMensagemDeRacaNaoEncontrada() {
         given()
-            .pathParam("breed", "racaInexistente")
+            .pathParam("breed", "invalid-breed")
         .when()
             .get("/breed/{breed}/images")
         .then()

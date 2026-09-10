@@ -41,11 +41,13 @@ Nada de instalar JMeter separado: o módulo de performance usa a versão Java da
 ## Como rodar
 
 ```
-mvn test -pl api-tests         # só a API
-mvn test -pl web-tests         # só o Web
-mvn test -pl performance-tests # carga + pico, ~12-14min
-mvn test                       # roda os 3 módulos, incluindo o de performance
+mvn test -pl api-tests                            # só a API
+mvn test -pl web-tests                             # só o Web
+mvn test -Pperformance -pl performance-tests       # carga + pico, ~12-14min
+mvn test                                           # roda API e Web (rápido)
 ```
+
+O módulo de performance fica fora do `mvn test` padrão de propósito, por causa do tempo (12-14min). Precisa do `-Pperformance` explícito pra rodar.
 
 Instruções de execução e relatório de cada módulo estão no README específico de cada pasta.
 
@@ -78,25 +80,27 @@ $ mvn test -pl web-tests
 $ mvn -pl web-tests allure:serve
 ```
 
-Pra rodar sem abrir o navegador de verdade (modo usado no CI): `mvn test -pl web-tests -Dheadless=true`.
+Pra rodar sem abrir o navegador de verdade (modo usado no CI): `mvn test -pl web-tests -Dheadless=true`. Vale saber: o site do blog do Agi às vezes bloqueia por rate limit (aconteceu tanto local quanto no CI), então esse teste pode falhar intermitentemente (detalhes no README do módulo).
 
 ### Exemplo completo: Performance
 
 ```
-$ mvn test -pl performance-tests
+$ mvn test -Pperformance -pl performance-tests
 ...
 [INFO] Running com.qa.performance.PurchaseFlightPerformanceTest
- =  152181 in 00:10:35 =  241,2/s Avg: 378 Min: 249 Max: 5147 Err: 0 (0,00%)
- =   20545 in 00:00:56 =  261,1/s Avg: 2373 Min: 187 Max: 8837 Err: 65 (0,32%)
-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
-[INFO] BUILD SUCCESS
+[ERROR] Tests run: 2, Failures: 1, Errors: 0, Skipped: 0
+[ERROR]   PurchaseFlightPerformanceTest.deveSuportarCargaDe250FluxosPorSegundo:34
+    nao deveria ter erros dentro do alvo de carga ==> expected: <0> but was: <1088>
+[INFO] BUILD FAILURE
 ```
 
-Aqui não tem `allure:serve`. O relatório é o dashboard nativo do JMeter, gerado direto em `performance-tests/target/reports/<load-test|spike-test>/<timestamp>/index.html`, que já abre puro no navegador sem precisar de servidor.
+Sim, esse `BUILD FAILURE` é esperado: o teste de carga tem assert real sobre o critério de aceitação (250 req/s, p90 < 2s), e o BlazeDemo não aguenta isso de forma confiável no ambiente de CI. Detalhes e números completos no README do módulo.
+
+O relatório é o dashboard nativo do JMeter (não usa `allure:serve`), gerado direto em `performance-tests/target/reports/<load-test|spike-test>/<timestamp>/index.html`, que já abre puro no navegador sem precisar de servidor.
 
 ## CI/CD
 
-O repositório tem GitHub Actions configurado em `.github/workflows/`: `api.yml` e `web.yml` rodam automaticamente a cada push/PR nos respectivos módulos (e também manualmente), `performance.yml` é só manual. Há ainda `pages.yml`, que publica os relatórios de execução como um site estático.
+O repositório tem GitHub Actions configurado em `.github/workflows/`: `api.yml` e `web.yml` rodam automaticamente a cada push/PR nos respectivos módulos (e também manualmente), `performance.yml` é só manual. Há ainda `pages.yml`, que roda API e Web de novo a cada push na `main` (sim, duplica a execução do gate) só pra gerar um relatório fresco e publicar no GitHub Pages — o site mostra o status real dessa execução específica, então não confunde com "sempre passou" mesmo se algo falhar.
 
 ## Melhorias futuras
 

@@ -133,7 +133,7 @@ $(document).ready(function() {
         widgets: ['zebra']
     });
 
-    var data = {"OkPercent": 99.68362131905573, "KoPercent": 0.3163786809442687};
+    var data = {"OkPercent": 98.81576812848105, "KoPercent": 1.184231871518953};
     var dataset = [
         {
             "label" : "FAIL",
@@ -173,7 +173,7 @@ $(document).ready(function() {
     });
 
     // Creates APDEX table
-    createTable($("#apdexTable"), {"supportsControllersDiscrimination": true, "overall": {"data": [0.3667802385008518, 500, 1500, "Total"], "isController": false}, "titles": ["Apdex", "T (Toleration threshold)", "F (Frustration threshold)", "Label"], "items": [{"data": [0.3666735622672735, 500, 1500, "confirm-purchase"], "isController": false}, {"data": [0.371109413786519, 500, 1500, "reserve-flight"], "isController": false}, {"data": [0.374502784407319, 500, 1500, "purchase-flight"], "isController": false}, {"data": [0.3555820785897907, 500, 1500, "home"], "isController": false}]}, function(index, item){
+    createTable($("#apdexTable"), {"supportsControllersDiscrimination": true, "overall": {"data": [0.3984750986859893, 500, 1500, "Total"], "isController": false}, "titles": ["Apdex", "T (Toleration threshold)", "F (Frustration threshold)", "Label"], "items": [{"data": [0.39474290984551536, 500, 1500, "confirm-purchase"], "isController": false}, {"data": [0.388086642599278, 500, 1500, "reserve-flight"], "isController": false}, {"data": [0.4027685492801772, 500, 1500, "purchase-flight"], "isController": false}, {"data": [0.4077453365774534, 500, 1500, "home"], "isController": false}]}, function(index, item){
         switch(index){
             case 0:
                 item = item.toFixed(3);
@@ -187,7 +187,7 @@ $(document).ready(function() {
     }, [[0, 0]], 3);
 
     // Create statistics table
-    createTable($("#statisticsTable"), {"supportsControllersDiscrimination": true, "overall": {"data": ["Total", 20545, 65, 0.3163786809442687, 2373.272572402033, 194, 8190, 1598.0, 5874.9000000000015, 6597.0, 7574.950000000008, 261.0844950502599, 1559.1928471608887, 67.96005548998615], "isController": false}, "titles": ["Label", "#Samples", "FAIL", "Error %", "Average", "Min", "Max", "Median", "90th pct", "95th pct", "99th pct", "Transactions/s", "Received", "Sent"], "items": [{"data": ["confirm-purchase", 4834, 15, 0.3103020273065784, 2415.3858088539546, 195, 8071, 1544.5, 5882.0, 6616.25, 7627.149999999989, 63.00669951252574, 354.58090573759813, 25.842591596934387], "isController": false}, {"data": ["reserve-flight", 5237, 21, 0.4009929348863853, 2347.2060339889304, 194, 8190, 1508.0, 5850.4, 6480.0, 7468.86, 67.3673107103347, 480.5481935314775, 16.38130895202475], "isController": false}, {"data": ["purchase-flight", 5028, 15, 0.29832935560859186, 2405.497215592677, 197, 8120, 1488.5, 5880.200000000001, 6616.0, 7602.070000000001, 65.12953367875647, 426.11498896939764, 18.827669608160623], "isController": false}, {"data": ["home", 5446, 14, 0.2570694087403599, 2331.206757253026, 195, 8106, 1506.5, 5802.900000000001, 6522.5999999999985, 7560.479999999996, 69.29546640200532, 321.12271721634795, 8.120562468985], "isController": false}]}, function(index, item){
+    createTable($("#statisticsTable"), {"supportsControllersDiscrimination": true, "overall": {"data": ["Total", 18493, 219, 1.184231871518953, 2735.4555777861833, 27, 10425, 1493.0, 7543.200000000004, 8876.899999999998, 10043.060000000001, 231.58224281510238, 1371.0593248113769, 60.6496736271993], "isController": false}, "titles": ["Label", "#Samples", "FAIL", "Error %", "Average", "Min", "Max", "Median", "90th pct", "95th pct", "99th pct", "Transactions/s", "Received", "Sent"], "items": [{"data": ["confirm-purchase", 4337, 62, 1.429559603412497, 2821.769425870419, 28, 10393, 1519.0, 7742.400000000003, 8914.999999999995, 10047.72, 55.49939215560817, 308.95420772282296, 22.871819814127583], "isController": false}, {"data": ["reserve-flight", 4709, 46, 0.9768528349968146, 2760.148651518363, 29, 10363, 1603.0, 7432.0, 8843.5, 10010.599999999999, 59.75509168199988, 423.8551026862191, 14.647000011896452], "isController": false}, {"data": ["purchase-flight", 4515, 54, 1.196013289036545, 2755.5224806201522, 27, 10425, 1498.0, 7563.4, 8826.199999999997, 10058.880000000001, 57.416450480695865, 372.3759012053958, 16.709941117141003], "isController": false}, {"data": ["home", 4932, 57, 1.1557177615571776, 2617.6078669910844, 30, 10303, 1370.5, 7380.099999999998, 8883.399999999998, 10053.050000000001, 61.81070784038501, 283.97161477262756, 7.364166363795869], "isController": false}]}, function(index, item){
         switch(index){
             // Errors pct
             case 3:
@@ -217,7 +217,7 @@ $(document).ready(function() {
     }, [[0, 0]], 0, summaryTableHeader);
 
     // Create error table
-    createTable($("#errorsTable"), {"supportsControllersDiscrimination": false, "titles": ["Type of error", "Number of errors", "% in errors", "% in all samples"], "items": [{"data": ["429/Too Many Requests", 65, 100.0, 0.3163786809442687], "isController": false}]}, function(index, item){
+    createTable($("#errorsTable"), {"supportsControllersDiscrimination": false, "titles": ["Type of error", "Number of errors", "% in errors", "% in all samples"], "items": [{"data": ["429/Too Many Requests", 219, 100.0, 1.184231871518953], "isController": false}]}, function(index, item){
         switch(index){
             case 2:
             case 3:
@@ -228,7 +228,7 @@ $(document).ready(function() {
     }, [[1, 1]]);
 
         // Create top5 errors by sampler
-    createTable($("#top5ErrorsBySamplerTable"), {"supportsControllersDiscrimination": false, "overall": {"data": ["Total", 20545, 65, "429/Too Many Requests", 65, "", "", "", "", "", "", "", ""], "isController": false}, "titles": ["Sample", "#Samples", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors"], "items": [{"data": ["confirm-purchase", 4834, 15, "429/Too Many Requests", 15, "", "", "", "", "", "", "", ""], "isController": false}, {"data": ["reserve-flight", 5237, 21, "429/Too Many Requests", 21, "", "", "", "", "", "", "", ""], "isController": false}, {"data": ["purchase-flight", 5028, 15, "429/Too Many Requests", 15, "", "", "", "", "", "", "", ""], "isController": false}, {"data": ["home", 5446, 14, "429/Too Many Requests", 14, "", "", "", "", "", "", "", ""], "isController": false}]}, function(index, item){
+    createTable($("#top5ErrorsBySamplerTable"), {"supportsControllersDiscrimination": false, "overall": {"data": ["Total", 18493, 219, "429/Too Many Requests", 219, "", "", "", "", "", "", "", ""], "isController": false}, "titles": ["Sample", "#Samples", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors"], "items": [{"data": ["confirm-purchase", 4337, 62, "429/Too Many Requests", 62, "", "", "", "", "", "", "", ""], "isController": false}, {"data": ["reserve-flight", 4709, 46, "429/Too Many Requests", 46, "", "", "", "", "", "", "", ""], "isController": false}, {"data": ["purchase-flight", 4515, 54, "429/Too Many Requests", 54, "", "", "", "", "", "", "", ""], "isController": false}, {"data": ["home", 4932, 57, "429/Too Many Requests", 57, "", "", "", "", "", "", "", ""], "isController": false}]}, function(index, item){
         return item;
     }, [[0, 0]], 0);
 
