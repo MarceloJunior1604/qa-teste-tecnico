@@ -13,19 +13,22 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Epic("Blog do Agi")
 @Feature("Busca de artigos")
-class SearchTest extends BaseTest {
+public class SearchTest extends BaseTest {
 
     @Test
     @DisplayName("Busca com termo existente retorna resultados relevantes")
     @Description("Buscar por um termo com correspondência deve exibir o heading correto e ao menos um post na lista de resultados.")
     void buscaComTermoExistenteRetornaResultados() {
+        String termo = "como";
         var results = new HomePage(driver)
                 .open()
-                .searchFor("como");
+                .searchFor(termo);
 
-        assertTrue(results.getHeading().contains("como"));
+        assertTrue(results.getHeading().contains(termo));
         assertTrue(results.hasResults());
-        assertFalse(results.getResultTitles().isEmpty());
+        assertTrue(results.getResultTitles().stream()
+                        .anyMatch(titulo -> titulo.toLowerCase().contains(termo)),
+                "nenhum titulo retornado contem o termo buscado");
     }
 
     @Test

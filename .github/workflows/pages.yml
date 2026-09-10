@@ -22,16 +22,18 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Configurar Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: '21'
 
       - name: Rodar testes de API
+        id: testes_api
         continue-on-error: true
         run: mvn test -pl api-tests
 
       - name: Rodar testes Web
+        id: testes_web
         continue-on-error: true
         run: mvn test -pl web-tests -Dheadless=true
 
@@ -42,6 +44,9 @@ jobs:
         run: mvn -pl web-tests allure:report
 
       - name: Montar site combinado
+        env:
+          STATUS_API: ${{ steps.testes_api.outcome }}
+          STATUS_WEB: ${{ steps.testes_web.outcome }}
         run: |
           mkdir -p site
           cp -r api-tests/target/site/allure-maven-plugin site/api
@@ -49,12 +54,16 @@ jobs:
           mkdir -p site/performance
           cp -r performance-tests/reports/load-test site/performance/load-test
           cp -r performance-tests/reports/spike-test site/performance/spike-test
-          cat > site/index.html <<'EOF'
+
+          badge() { if [ "$1" = "success" ]; then echo "passou"; else echo "FALHOU"; fi; }
+
+          cat > site/index.html <<EOF
           <!DOCTYPE html>
           <html lang="pt-BR">
           <head><meta charset="UTF-8"><title>Relatorios - Teste Tecnico QA</title></head>
           <body>
             <h1>Relatorios de execucao</h1>
+            <p>Esta execucao: API $(badge "$STATUS_API") / Web $(badge "$STATUS_WEB"). Status real desta run, nao um resumo generico.</p>
             <ul>
               <li><a href="api/index.html">API Tests (Allure)</a></li>
               <li><a href="web/index.html">Web Tests (Allure)</a></li>
@@ -64,6 +73,10 @@ jobs:
           </body>
           </html>
           EOF
+
+          echo "## Status desta execucao" >> "$GITHUB_STEP_SUMMARY"
+          echo "- API: $(badge "$STATUS_API")" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Web: $(badge "$STATUS_WEB")" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Publicar artefato do Pages
         uses: actions/upload-pages-artifact@v3

@@ -35,10 +35,10 @@ Sobre o "250 req/s": configurei o `rpsThreadGroup` mirando 250 fluxos completos 
 ## Como executar
 
 ```
-mvn test -pl performance-tests
+mvn test -Pperformance -pl performance-tests
 ```
 
-Roda os dois testes seguidos: carga (~10-11min) e pico (~1min), uns 12-14min no total.
+Roda os dois testes seguidos: carga (~10-11min) e pico (~1min), uns 12-14min no total. O `-Pperformance` é necessário porque esse módulo fica fora do build padrão (`mvn test` sozinho não roda ele, pra não travar 12min sem ninguém esperar isso).
 
 ## Como ler o relatório
 

@@ -18,7 +18,15 @@
     <modules>
         <module>api-tests</module>
         <module>web-tests</module>
-        <module>performance-tests</module>
     </modules>
+
+    <profiles>
+        <profile>
+            <id>performance</id>
+            <modules>
+                <module>performance-tests</module>
+            </modules>
+        </profile>
+    </profiles>
 
 </project>
