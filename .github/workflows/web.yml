@@ -34,3 +34,13 @@ jobs:
         with:
           name: allure-report-web
           path: web-tests/target/site/allure-maven-plugin/
+
+      - name: Exibir link do relatorio
+        if: always()
+        run: |
+          echo "## Relatorio do Web" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Versao mais atualizada (publicada a cada push na main):" >> "$GITHUB_STEP_SUMMARY"
+          echo "https://marcelojunior1604.github.io/qa-teste-tecnico/web/index.html" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "O artefato **allure-report-web** (aba Artifacts acima) tem o relatorio bruto desta execucao especifica, mas precisa ser servido por HTTP pra abrir (o Allure nao funciona com duplo clique direto no arquivo)." >> "$GITHUB_STEP_SUMMARY"

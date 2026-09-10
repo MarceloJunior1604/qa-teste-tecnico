@@ -24,3 +24,12 @@ jobs:
         with:
           name: performance-reports
           path: performance-tests/target/reports/
+
+      - name: Exibir link do relatorio
+        if: always()
+        run: |
+          echo "## Relatorio de Performance" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Baixe o artefato **performance-reports** acima (aba Artifacts) e abra o index.html direto no navegador — o dashboard do JMeter e autocontido, funciona com duplo clique, sem precisar de servidor." >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "O snapshot commitado no repositorio (usado nos resultados do README) fica em https://marcelojunior1604.github.io/qa-teste-tecnico/performance/load-test/index.html e .../performance/spike-test/index.html — mas so reflete a ultima execucao que foi copiada manualmente pra la, nao necessariamente esta execucao agora." >> "$GITHUB_STEP_SUMMARY"
