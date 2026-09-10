@@ -133,7 +133,7 @@ $(document).ready(function() {
         widgets: ['zebra']
     });
 
-    var data = {"OkPercent": 100.0, "KoPercent": 0.0};
+    var data = {"OkPercent": 99.27516921601023, "KoPercent": 0.7248307839897671};
     var dataset = [
         {
             "label" : "FAIL",
@@ -173,7 +173,7 @@ $(document).ready(function() {
     });
 
     // Creates APDEX table
-    createTable($("#apdexTable"), {"supportsControllersDiscrimination": true, "overall": {"data": [0.9547315367884296, 500, 1500, "Total"], "isController": false}, "titles": ["Apdex", "T (Toleration threshold)", "F (Frustration threshold)", "Label"], "items": [{"data": [0.9559972638059407, 500, 1500, "confirm-purchase"], "isController": false}, {"data": [0.9566011457402638, 500, 1500, "reserve-flight"], "isController": false}, {"data": [0.9547545810658044, 500, 1500, "purchase-flight"], "isController": false}, {"data": [0.9515769018670728, 500, 1500, "home"], "isController": false}]}, function(index, item){
+    createTable($("#apdexTable"), {"supportsControllersDiscrimination": true, "overall": {"data": [0.7238747801524277, 500, 1500, "Total"], "isController": false}, "titles": ["Apdex", "T (Toleration threshold)", "F (Frustration threshold)", "Label"], "items": [{"data": [0.7234838364947903, 500, 1500, "confirm-purchase"], "isController": false}, {"data": [0.727119005139403, 500, 1500, "reserve-flight"], "isController": false}, {"data": [0.7210012535673326, 500, 1500, "purchase-flight"], "isController": false}, {"data": [0.7238891251195918, 500, 1500, "home"], "isController": false}]}, function(index, item){
         switch(index){
             case 0:
                 item = item.toFixed(3);
@@ -187,7 +187,7 @@ $(document).ready(function() {
     }, [[0, 0]], 3);
 
     // Create statistics table
-    createTable($("#statisticsTable"), {"supportsControllersDiscrimination": true, "overall": {"data": ["Total", 152181, 0, 0.0, 378.2377760692815, 249, 5147, 325.0, 464.0, 516.0, 620.0, 241.22325923483686, 1448.0648381080077, 63.88091663701195], "isController": false}, "titles": ["Label", "#Samples", "FAIL", "Error %", "Average", "Min", "Max", "Median", "90th pct", "95th pct", "99th pct", "Transactions/s", "Received", "Sent"], "items": [{"data": ["confirm-purchase", 38009, 0, 0.0, 376.93146360072467, 254, 5131, 325.5, 468.0, 527.0, 810.9700000000048, 60.382064418761665, 340.8301312601771, 24.766081109257716], "isController": false}, {"data": ["reserve-flight", 38054, 0, 0.0, 380.0006044042709, 249, 5050, 327.0, 469.0, 526.0, 948.9600000000064, 60.39655974186954, 432.50969524270363, 14.68627282785695], "isController": false}, {"data": ["purchase-flight", 38037, 0, 0.0, 378.2963167442185, 254, 5002, 327.0, 474.0, 533.0, 891.9800000000032, 60.39584309179971, 396.29049525788156, 17.458173393723357], "isController": false}, {"data": ["home", 38081, 0, 0.0, 377.7215671857324, 251, 5147, 320.0, 476.0, 539.0, 1118.9700000000048, 60.36248240530567, 280.41629687014563, 7.0737284068717585], "isController": false}]}, function(index, item){
+    createTable($("#statisticsTable"), {"supportsControllersDiscrimination": true, "overall": {"data": ["Total", 150104, 1088, 0.7248307839897671, 1165.0525035974986, 0, 10492, 288.0, 2860.0, 6646.700000000004, 9856.930000000011, 235.79346864784452, 1405.586960527344, 62.86833310408488], "isController": false}, "titles": ["Label", "#Samples", "FAIL", "Error %", "Average", "Min", "Max", "Median", "90th pct", "95th pct", "99th pct", "Transactions/s", "Received", "Sent"], "items": [{"data": ["confirm-purchase", 37430, 283, 0.7560780122896072, 1146.2938017632862, 1, 10439, 288.0, 3278.7000000000044, 7036.950000000001, 9607.860000000022, 58.89757832292175, 330.03383539893156, 24.270947251026733], "isController": false}, {"data": ["reserve-flight", 37553, 239, 0.6364338401725561, 1160.5788618752279, 0, 10468, 286.0, 3591.600000000006, 7356.950000000001, 9679.0, 59.0784807896219, 420.4629568654369, 14.47999419586531], "isController": false}, {"data": ["purchase-flight", 37493, 279, 0.7441389059291068, 1180.9538847251458, 0, 10487, 289.0, 3566.800000000003, 7391.850000000002, 9703.0, 58.97156410776667, 384.1635373339051, 17.160450038515624], "isController": false}, {"data": ["home", 37628, 287, 0.7627298820027639, 1172.3328904007574, 0, 10492, 283.0, 3816.600000000006, 7401.9000000000015, 9558.980000000003, 59.12624273060539, 272.6814248332616, 7.043588672865065], "isController": false}]}, function(index, item){
         switch(index){
             // Errors pct
             case 3:
@@ -217,7 +217,7 @@ $(document).ready(function() {
     }, [[0, 0]], 0, summaryTableHeader);
 
     // Create error table
-    createTable($("#errorsTable"), {"supportsControllersDiscrimination": false, "titles": ["Type of error", "Number of errors", "% in errors", "% in all samples"], "items": []}, function(index, item){
+    createTable($("#errorsTable"), {"supportsControllersDiscrimination": false, "titles": ["Type of error", "Number of errors", "% in errors", "% in all samples"], "items": [{"data": ["Non HTTP response code: org.apache.http.NoHttpResponseException/Non HTTP response message: www.blazedemo.com:443 failed to respond", 12, 1.1029411764705883, 0.007994457176357725], "isController": false}, {"data": ["429/Too Many Requests", 1076, 98.8970588235294, 0.7168363268134094], "isController": false}]}, function(index, item){
         switch(index){
             case 2:
             case 3:
@@ -228,7 +228,7 @@ $(document).ready(function() {
     }, [[1, 1]]);
 
         // Create top5 errors by sampler
-    createTable($("#top5ErrorsBySamplerTable"), {"supportsControllersDiscrimination": false, "overall": {"data": ["Total", 152181, 0, "", "", "", "", "", "", "", "", "", ""], "isController": false}, "titles": ["Sample", "#Samples", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors"], "items": [{"data": [], "isController": false}, {"data": [], "isController": false}, {"data": [], "isController": false}, {"data": [], "isController": false}]}, function(index, item){
+    createTable($("#top5ErrorsBySamplerTable"), {"supportsControllersDiscrimination": false, "overall": {"data": ["Total", 150104, 1088, "429/Too Many Requests", 1076, "Non HTTP response code: org.apache.http.NoHttpResponseException/Non HTTP response message: www.blazedemo.com:443 failed to respond", 12, "", "", "", "", "", ""], "isController": false}, "titles": ["Sample", "#Samples", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors", "Error", "#Errors"], "items": [{"data": ["confirm-purchase", 37430, 283, "429/Too Many Requests", 281, "Non HTTP response code: org.apache.http.NoHttpResponseException/Non HTTP response message: www.blazedemo.com:443 failed to respond", 2, "", "", "", "", "", ""], "isController": false}, {"data": ["reserve-flight", 37553, 239, "429/Too Many Requests", 236, "Non HTTP response code: org.apache.http.NoHttpResponseException/Non HTTP response message: www.blazedemo.com:443 failed to respond", 3, "", "", "", "", "", ""], "isController": false}, {"data": ["purchase-flight", 37493, 279, "429/Too Many Requests", 276, "Non HTTP response code: org.apache.http.NoHttpResponseException/Non HTTP response message: www.blazedemo.com:443 failed to respond", 3, "", "", "", "", "", ""], "isController": false}, {"data": ["home", 37628, 287, "429/Too Many Requests", 283, "Non HTTP response code: org.apache.http.NoHttpResponseException/Non HTTP response message: www.blazedemo.com:443 failed to respond", 4, "", "", "", "", "", ""], "isController": false}]}, function(index, item){
         return item;
     }, [[0, 0]], 0);
 

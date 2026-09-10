@@ -88,13 +88,15 @@ Pra rodar sem abrir o navegador de verdade (modo usado no CI): `mvn test -pl web
 $ mvn test -Pperformance -pl performance-tests
 ...
 [INFO] Running com.qa.performance.PurchaseFlightPerformanceTest
- =  152181 in 00:10:35 =  241,2/s Avg: 378 Min: 249 Max: 5147 Err: 0 (0,00%)
- =   20545 in 00:00:56 =  261,1/s Avg: 2373 Min: 187 Max: 8837 Err: 65 (0,32%)
-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
-[INFO] BUILD SUCCESS
+[ERROR] Tests run: 2, Failures: 1, Errors: 0, Skipped: 0
+[ERROR]   PurchaseFlightPerformanceTest.deveSuportarCargaDe250FluxosPorSegundo:34
+    nao deveria ter erros dentro do alvo de carga ==> expected: <0> but was: <1088>
+[INFO] BUILD FAILURE
 ```
 
-Aqui não tem `allure:serve`. O relatório é o dashboard nativo do JMeter, gerado direto em `performance-tests/target/reports/<load-test|spike-test>/<timestamp>/index.html`, que já abre puro no navegador sem precisar de servidor.
+Sim, esse `BUILD FAILURE` é esperado: o teste de carga tem assert real sobre o critério de aceitação (250 req/s, p90 < 2s), e o BlazeDemo não aguenta isso de forma confiável no ambiente de CI. Detalhes e números completos no README do módulo.
+
+O relatório é o dashboard nativo do JMeter (não usa `allure:serve`), gerado direto em `performance-tests/target/reports/<load-test|spike-test>/<timestamp>/index.html`, que já abre puro no navegador sem precisar de servidor.
 
 ## CI/CD
 
