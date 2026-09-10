@@ -1,4 +1,4 @@
-# Teste Técnico QA — Web, API e Performance
+# Teste Técnico QA: Web, API e Performance
 
 Repositório com a automação dos 3 desafios técnicos de QA. Relatórios sempre atualizados aqui: https://marcelojunior1604.github.io/qa-teste-tecnico/
 
@@ -27,7 +27,7 @@ qa-teste-tecnico/
 
 - Um pacote por módulo (`com.qa.api`, `com.qa.web`, `com.qa.performance`), sem dependência cruzada entre eles.
 - Classes e métodos em inglês (convenção normal de Java/Selenium/RestAssured); nomes de `@Test` e das anotações do Allure (`@DisplayName`, `@Description`) em português, porque descrevem os cenários do próprio enunciado.
-- `web-tests` usa Page Object Model (`HomePage`, `SearchResultsPage`) — a interação com a página fica separada da lógica do teste.
+- `web-tests` usa Page Object Model (`HomePage`, `SearchResultsPage`), separando a interação com a página da lógica do teste.
 - Allure como relatório em API e Web; no Performance é o dashboard nativo do JMeter, que já vem pronto na lib.
 
 ## Pré-requisitos
@@ -36,7 +36,7 @@ qa-teste-tecnico/
 - Maven 3.9+
 - Google Chrome instalado (para os testes web)
 
-Nada de instalar JMeter separado — o módulo de performance usa a versão Java da lib, que já vem como dependência Maven.
+Nada de instalar JMeter separado: o módulo de performance usa a versão Java da lib, que já vem como dependência Maven.
 
 ## Como rodar
 
@@ -49,7 +49,7 @@ mvn test                       # roda os 3 módulos, incluindo o de performance
 
 Instruções de execução e relatório de cada módulo estão no README específico de cada pasta.
 
-### Exemplo completo — API
+### Exemplo completo: API
 
 ```
 $ mvn test -pl api-tests
@@ -66,7 +66,7 @@ $ mvn -pl api-tests allure:serve
 # abre o relatório no navegador automaticamente
 ```
 
-### Exemplo completo — Web
+### Exemplo completo: Web
 
 ```
 $ mvn test -pl web-tests
@@ -80,7 +80,7 @@ $ mvn -pl web-tests allure:serve
 
 Pra rodar sem abrir o navegador de verdade (modo usado no CI): `mvn test -pl web-tests -Dheadless=true`.
 
-### Exemplo completo — Performance
+### Exemplo completo: Performance
 
 ```
 $ mvn test -pl performance-tests
@@ -92,7 +92,7 @@ $ mvn test -pl performance-tests
 [INFO] BUILD SUCCESS
 ```
 
-Aqui não tem `allure:serve` — o relatório é o dashboard nativo do JMeter, gerado direto em `performance-tests/target/reports/<load-test|spike-test>/<timestamp>/index.html`, que já abre puro no navegador sem precisar de servidor.
+Aqui não tem `allure:serve`. O relatório é o dashboard nativo do JMeter, gerado direto em `performance-tests/target/reports/<load-test|spike-test>/<timestamp>/index.html`, que já abre puro no navegador sem precisar de servidor.
 
 ## CI/CD
 
@@ -104,5 +104,5 @@ Coisas que eu faria se isso fosse um projeto real, não um desafio técnico:
 
 - Notificação em Slack/Teams/Discord via webhook ao final da execução (passou/falhou, link do relatório), em vez de depender de alguém ir checar a aba Actions.
 - Integrar com a pipeline de deploy de verdade da aplicação, como um step/gate antes ou depois de subir uma versão nova, em vez de rodar isolado só nesse repositório.
-- Tags nos testes (`@Tag` do JUnit5, tipo `smoke` e `regressivo`) pra escolher o quanto rodar dependendo do contexto — smoke rápido no deploy, regressão completa em outro momento.
+- Tags nos testes (`@Tag` do JUnit5, tipo `smoke` e `regressivo`) pra escolher o quanto rodar dependendo do contexto: smoke rápido no deploy, regressão completa em outro momento.
 - Execução agendada, tipo de 8h às 18h de 2 em 2 horas (`schedule`/`cron` no Actions). Em banco os sistemas de times diferentes se comunicam o tempo todo, então isso ajuda a pegar rápido quando o deploy de outro time quebrou alguma integração que afeta a sua aplicação, mesmo sem ninguém ter mexido no seu próprio código naquele dia.
